@@ -29,9 +29,9 @@ class MainActivity : AppCompatActivity() {
             val contact = personContact.text.toString()
 
             val intent = Intent(this, DetailsActivity::class.java)
-            intent.putExtra("NameData", name)
-            intent.putExtra("AgeData", age)
-            intent.putExtra("ContactData", contact)
+            intent.putExtra(DetailsActivity.NAME, name)
+            intent.putExtra(DetailsActivity.AGE, age)
+            intent.putExtra(DetailsActivity.CONTACT, contact)
             startActivity(intent)
 
         }

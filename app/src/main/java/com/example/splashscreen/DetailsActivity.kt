@@ -25,9 +25,9 @@ class DetailsActivity : AppCompatActivity() {
         detailsContact=findViewById(R.id.detailsContact)
 
 
-        val name = intent.getStringExtra("NameData")
-        val age = intent.getStringExtra("AgeData")
-        val contact = intent.getStringExtra("ContactData")
+        val name = intent.getStringExtra(NAME)
+        val age = intent.getStringExtra(AGE)
+        val contact = intent.getStringExtra(CONTACT)
 
         detailsPerson.text = "Hi " + name
         detailsAge.text = "Your Age is "+ age
