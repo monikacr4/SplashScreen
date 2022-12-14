@@ -28,6 +28,18 @@ class MainActivity : AppCompatActivity() {
             val age = personAge.text.toString()
             val contact = personContact.text.toString()
 
+            if(name.isEmpty()){
+                personName.error = "name required"
+                return@setOnClickListener
+            }else if(age.isEmpty()){
+                personAge.error = "age required"
+                return@setOnClickListener
+            }
+            else if (contact.isEmpty()){
+                personContact.error = "occupation required"
+                return@setOnClickListener
+            }
+
             val intent = Intent(this, DetailsActivity::class.java)
             intent.putExtra(DetailsActivity.NAME, name)
             intent.putExtra(DetailsActivity.AGE, age)
