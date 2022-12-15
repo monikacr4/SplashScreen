@@ -4,17 +4,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
+import com.example.splashscreen.Model.Person
 import com.example.splashscreen.R.id.detailsOccupation
 
 class DetailsActivity : AppCompatActivity() {
     lateinit var detailsPerson: TextView
     lateinit var detailsAge: TextView
     lateinit var detailsOccupation: TextView
-    companion object{
-        const val NAME = "NAME"
-        const val AGE = "AGE"
-        const val OCCUPATION = "OCCUPATION"
-    }
+//
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_details)
@@ -24,13 +21,11 @@ class DetailsActivity : AppCompatActivity() {
         detailsOccupation=findViewById(R.id.detailsOccupation)
 
 
-        val name = intent.getStringExtra(NAME)
-        val age = intent.getStringExtra(AGE)
-        val occupation = intent.getStringExtra(OCCUPATION)
+        val person = intent.getSerializableExtra("PERSON") as Person
 
-        detailsPerson.text = "Name entered " + name
-        detailsAge.text = "Age entered"+ age
-        detailsOccupation.text = "Ocupation entered "+ occupation
+        detailsPerson.text = "Name entered : " + person.name
+        detailsAge.text = "Age entered: "+ person.age
+        detailsOccupation.text = "Ocupation entered: "+ person.occupation
 
     }
     override fun onPause() {

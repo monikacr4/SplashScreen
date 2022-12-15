@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
+import com.example.splashscreen.Model.Person
 import com.google.android.material.textfield.TextInputEditText
 
 class MainActivity : AppCompatActivity() {
@@ -27,15 +29,17 @@ class MainActivity : AppCompatActivity() {
         button = findViewById(R.id.button)
         button.setOnClickListener {
             val name = personName.text.toString()
-            val age = personAge.text.toString()
+            val age = personAge.text.toString().toIntOrNull()
             val occupation = personOccupation.text.toString()
+            val person = Person(name,age,occupation)
 
             if(name.isEmpty()){
                 personName.error = "name required" +
                         ""
                 return@setOnClickListener
-            }else if(age.isEmpty()){
+            }else if(age == null){
                 personAge.error = "age required"
+                Toast.makeText(this,"Please enter a number", Toast.LENGTH_LONG ).show()
                 return@setOnClickListener
             }
             else if (occupation.isEmpty()){
@@ -44,9 +48,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             val intent = Intent(this, DetailsActivity::class.java)
-            intent.putExtra(DetailsActivity.NAME, name)
-            intent.putExtra(DetailsActivity.AGE, age)
-            intent.putExtra(DetailsActivity.OCCUPATION, occupation)
+            intent.putExtra("PERSON", person)
             startActivity(intent)
 
 
