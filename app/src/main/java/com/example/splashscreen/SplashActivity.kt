@@ -21,6 +21,7 @@ class SplashActivity : AppCompatActivity() {
             }
         },5000)
         Log.d("Main", "onCreated")
+
     }
 
     override fun onBackPressed() {
@@ -29,6 +30,11 @@ class SplashActivity : AppCompatActivity() {
         }
         //super.onBackPressed()
     }
+    override fun onPause() {
+        super.onPause()
+        finish()
+    }
+
     override fun onStart() {
         super.onStart()
         Log.d("Main", "onStart Called")

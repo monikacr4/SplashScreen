@@ -4,12 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="20dp"
-    tools:context=".DetailsActivity">
+    tools:context=".PreferenceActivity">
 
     <TextView
-        android:id="@+id/detailsPerson"
+        android:id="@+id/detailsPersons"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         app:layout_constraintBottom_toBottomOf="@id/detailsAges"
@@ -20,36 +18,22 @@
         app:layout_constraintVertical_bias="0.15" />
 
     <TextView
-        android:id="@+id/detailsAge"
+        android:id="@+id/detailsAges"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_marginTop="30dp"
-        app:layout_constraintBottom_toTopOf="@+id/detailsOccupation"
+        app:layout_constraintBottom_toTopOf="@+id/detailsOccupations"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/detailsPerson" />
+        app:layout_constraintTop_toBottomOf="@id/detailsPersons" />
 
     <TextView
-        android:id="@+id/detailsOccupation"
+        android:id="@+id/detailsOccupations"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_marginTop="30dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/detailsAge" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/continueButton"
-        app:layout_constraintTop_toBottomOf="@id/detailsOccupation"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="50dp"
-        android:text="CONTINUE">
-
-    </Button>
-
-
+        app:layout_constraintTop_toBottomOf="@id/detailsAges" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
