@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var personName: TextInputEditText
     lateinit var personAge: TextInputEditText
     lateinit var personOccupation: EditText
-   // lateinit var viewModel: LoginViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -34,9 +34,9 @@ class MainActivity : AppCompatActivity() {
             val person = Person(name,age,occupation)
 
             if(name.isEmpty()){
-                personName.error = "name required" +
-                        ""
+                personName.error = "name required"
                 return@setOnClickListener
+                
             }else if(age == null){
                 personAge.error = "age required"
                 Toast.makeText(this,"Please enter a number", Toast.LENGTH_LONG ).show()
