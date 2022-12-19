@@ -1,4 +1,4 @@
-package com.example.splashscreen.Model
+package com.example.splashscreen
 
 data class Person(
     val name: String,

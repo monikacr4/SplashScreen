@@ -7,7 +7,6 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import com.example.splashscreen.Model.Person
 import com.google.android.material.textfield.TextInputEditText
 
 class MainActivity : AppCompatActivity() {

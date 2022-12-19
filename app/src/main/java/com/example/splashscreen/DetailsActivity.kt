@@ -10,7 +10,8 @@ import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
-import com.example.splashscreen.Model.Person
+import androidx.activity.viewModels
+import com.example.splashscreen.Model.PreferenceVm
 import com.example.splashscreen.R.*
 
 class DetailsActivity : AppCompatActivity() {
@@ -26,6 +27,8 @@ class DetailsActivity : AppCompatActivity() {
     private var NAME= "name"
     private var AGE= "age"
     private var OCCUPATION= "occupation"
+
+    val viewModel by viewModels<PreferenceVm>()
 
 
     @SuppressLint("MissingInflatedId", "SetTextI18n")
@@ -60,11 +63,15 @@ class DetailsActivity : AppCompatActivity() {
             val ages = detailsAge.text.toString()
             val occupations = detailsOccupation.text.toString()
 
-            val editor: SharedPreferences.Editor=sharedPreferences.edit()
-            editor.putString(NAME,names)
-            editor.putString(AGE,ages)
-            editor.putString(OCCUPATION,occupations)
-            editor.apply()
+            viewModel.saveDetails(details = Details(name = names, nameKey = NAME,
+                age=ages,ageKey = AGE,
+                occupation = occupations, occupationKey = OCCUPATION))
+
+//            val editor: SharedPreferences.Editor=sharedPreferences.edit()
+//            editor.putString(NAME,names)
+//            editor.putString(AGE,ages)
+//            editor.putString(OCCUPATION,occupations)
+//            editor.apply()
 
             Toast.makeText(this,"info saved",Toast.LENGTH_LONG).show()
 
