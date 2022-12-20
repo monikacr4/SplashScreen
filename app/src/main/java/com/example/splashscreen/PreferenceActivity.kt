@@ -1,12 +1,9 @@
 package com.example.splashscreen
 
-import android.app.Application
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
-import androidx.lifecycle.ViewModelProvider
-import com.example.splashscreen.Model.PreferenceRepository
 import com.example.splashscreen.Model.PreferenceVm
 import androidx.activity.viewModels
 
@@ -18,14 +15,13 @@ class PreferenceActivity : AppCompatActivity() {
 
     val viewModel by viewModels<PreferenceVm>()
 
-    private var SHARED_PREF = "mypref"
+    private val SHARED_PREF = "mypref"
 
     private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_preference)
-
 
         personsName = findViewById(R.id.detailsPersons)
         personsAge= findViewById(R.id.detailsAges)
@@ -34,20 +30,14 @@ class PreferenceActivity : AppCompatActivity() {
         sharedPreferences = getSharedPreferences(SHARED_PREF, MODE_PRIVATE)
 
 
-        viewModel.getdetails()
+        viewModel.getDetails(details = Details())
 
-        viewModel.personName.observe(this){
+        viewModel.personDetails.observe(this){
 
-                personsName.text = it
-        }
-        viewModel.personAge.observe(this){
-            if(it != null) {
-                personsAge.text = it
-            }
-        }
-        viewModel.personOccupation.observe(this){
-                personsOccupation.text = it
-        }
+            personsName.text = it?.name
+            personsAge.text = it?.age
+            personsOccupation.text=it?.occupation
 
+        }
     }
 }

@@ -10,7 +10,7 @@ import android.widget.Toast
 import com.google.android.material.textfield.TextInputEditText
 
 class MainActivity : AppCompatActivity() {
-    lateinit var personName: TextInputEditText
+    private var personName: TextInputEditText? = null
     lateinit var personAge: TextInputEditText
     lateinit var personOccupation: EditText
 
@@ -21,27 +21,26 @@ class MainActivity : AppCompatActivity() {
         //viewModel = ViewModelProviders.of()
 
         personName = findViewById(R.id.personName)
-        personAge= findViewById(R.id.personAge)
+        personAge = findViewById(R.id.personAge)
         personOccupation = findViewById(R.id.personOccupation)
 
-        val button: Button
-        button = findViewById(R.id.button)
+
+        val button: Button = findViewById(R.id.button)
         button.setOnClickListener {
-            val name = personName.text.toString()
+            val name = personName?.text.toString()
             val age = personAge.text.toString().toIntOrNull()
             val occupation = personOccupation.text.toString()
-            val person = Person(name,age,occupation)
+            val person = Person(name, age, occupation)
 
-            if(name.isEmpty()){
-                personName.error = "name required"
+            if (name.isEmpty()) {
+                personName?.error = "name required"
                 return@setOnClickListener
-                
-            }else if(age == null){
+
+            } else if (age == null) {
                 personAge.error = "age required"
-                Toast.makeText(this,"Please enter a number", Toast.LENGTH_LONG ).show()
+                Toast.makeText(this, "Please enter a number", Toast.LENGTH_LONG).show()
                 return@setOnClickListener
-            }
-            else if (occupation.isEmpty()){
+            } else if (occupation.isEmpty()) {
                 personOccupation.error = "occupation required"
                 return@setOnClickListener
             }
@@ -54,6 +53,7 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
     override fun onPause() {
         super.onPause()
         Log.d("Main", "onPause main Called")

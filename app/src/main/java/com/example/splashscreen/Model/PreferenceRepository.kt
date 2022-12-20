@@ -22,11 +22,17 @@ class PreferenceRepository {
         editor.apply()
     }
 
-    fun getFromPref(context: Context, key: String): String? {
+    fun getFromPref(context: Context, details: Details): Details? {
         val sharedPref: SharedPreferences =
             context.getSharedPreferences(SHARED_PREF, MODE_PRIVATE)
-        return sharedPref.getString(key, null)
+        val namePerson = sharedPref.getString(details.nameKey, null)
+        val agePerson = sharedPref.getString(details.ageKey, null)
+        val occupationPerson = sharedPref.getString(details.occupationKey, null)
+        val Detail = Details(name =namePerson, age = agePerson,occupation = occupationPerson)
+        return Detail
     }
+
+
 
 
 

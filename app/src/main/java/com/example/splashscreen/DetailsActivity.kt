@@ -12,23 +12,28 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.example.splashscreen.Model.PreferenceVm
-import com.example.splashscreen.R.*
+import com.example.splashscreen.R.layout
 
 class DetailsActivity : AppCompatActivity() {
-    lateinit var detailsPerson: TextView
-    lateinit var detailsAge: TextView
-    lateinit var detailsOccupation: TextView
+    private lateinit var detailsPerson: TextView
+    private lateinit var detailsAge: TextView
+    private lateinit var detailsOccupation: TextView
 
+    //Why lateint
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var editor: SharedPreferences.Editor
-    var isRemembered = false
 
-    private var SHARED_PREF = "mypref"
-    private var NAME= "name"
-    private var AGE= "age"
-    private var OCCUPATION= "occupation"
+    companion object {
+        private const val SHARED_PREF = "mypref"
+        private var NAME = "name"
+        private var AGE = "age"
+        private var OCCUPATION = "occupation"
+    }
+    //companion object, what is a companion object
 
-    val viewModel by viewModels<PreferenceVm>()
+
+    //Why lazy, what is ment by keyword, what is inline function
+    private val viewModel by viewModels<PreferenceVm>()
 
 
     @SuppressLint("MissingInflatedId", "SetTextI18n")
@@ -36,64 +41,58 @@ class DetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(layout.activity_details)
 
-        detailsPerson=findViewById(R.id.detailsPerson)
-        detailsAge=findViewById(R.id.detailsAge)
-        detailsOccupation=findViewById(R.id.detailsOccupation)
+        // Can this be local?
+        detailsPerson = findViewById(R.id.detailsPerson)
+        detailsAge = findViewById(R.id.detailsAge)
+        detailsOccupation = findViewById(R.id.detailsOccupation)
 
-
+        //Checj for null, cast check
         val person = intent.getSerializableExtra("PERSON") as Person
 
+        //Move this to strings
         detailsPerson.text = "Name entered : " + person.name
-        detailsAge.text = "Age entered: "+ person.age
-        detailsOccupation.text = "Occupation entered: "+ person.occupation
+        detailsAge.text = "Age entered: " + person.age
+        detailsOccupation.text = "Occupation entered: " + person.occupation
+
 
         sharedPreferences = getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE)
+        //Can be local
         editor = sharedPreferences.edit()
-        isRemembered=sharedPreferences.getBoolean("CHECKBOX", false)
 
-        if(isRemembered){
-            val intent = Intent(this,PreferenceActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-        val continueButton: Button
-        continueButton = findViewById(R.id.continueButton)
-        continueButton.setOnClickListener{
+        val continueButton: Button = findViewById(R.id.continueButton)
+        continueButton.setOnClickListener {
             val names = detailsPerson.text.toString()
             val ages = detailsAge.text.toString()
             val occupations = detailsOccupation.text.toString()
 
-            viewModel.saveDetails(details = Details(name = names, nameKey = NAME,
-                age=ages,ageKey = AGE,
-                occupation = occupations, occupationKey = OCCUPATION))
-
+            viewModel.saveDetails(
+                details = Details(
+                    name = names, nameKey = NAME,
+                    age = ages, ageKey = AGE,
+                    occupation = occupations, occupationKey = OCCUPATION
+                )
+            )
 //            val editor: SharedPreferences.Editor=sharedPreferences.edit()
 //            editor.putString(NAME,names)
 //            editor.putString(AGE,ages)
 //            editor.putString(OCCUPATION,occupations)
 //            editor.apply()
 
-            Toast.makeText(this,"info saved",Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "info saved", Toast.LENGTH_LONG).show()
 
-            val intent = Intent(this,PreferenceActivity::class.java)
+            val intent = Intent(this, PreferenceActivity::class.java)
             startActivity(intent)
             finish()
         }
-
-
     }
-
-
     override fun onStop() {
         super.onStop()
         Log.d("Main", "onStop Called")
     }
-
     override fun onDestroy() {
         super.onDestroy()
         Log.d("Main", "onDestroy Called")
     }
-
     override fun onRestart() {
         super.onRestart()
         Log.d("Main", "onRestart Called")

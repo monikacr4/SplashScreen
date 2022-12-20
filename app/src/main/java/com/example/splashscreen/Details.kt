@@ -1,10 +1,10 @@
 package com.example.splashscreen
 
 data class Details(
-    var name:String,
-    var age:String,
-    var occupation: String,
-    var nameKey:String,
-    var ageKey:String,
-    var occupationKey: String
+    var name:String? = null,
+    var age:String? = null,
+    var occupation: String? = null,
+    var nameKey:String? = "name",
+    var ageKey:String? = "age",
+    var occupationKey: String? = "occupation"
 )
