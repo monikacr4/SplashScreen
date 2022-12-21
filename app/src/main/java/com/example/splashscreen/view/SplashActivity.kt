@@ -1,4 +1,4 @@
-package com.example.splashscreen
+package com.example.splashscreen.view
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import com.example.splashscreen.R
 
 class SplashActivity : AppCompatActivity() {
     var checkBackPressed : Boolean = false
@@ -14,8 +15,8 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
         val handler = Handler(Looper.getMainLooper())
         handler.postDelayed({
-            val intent = Intent(this,MainActivity::class.java)
-            if (!checkBackPressed == true) {
+            val intent = Intent(this, MainActivity::class.java)
+            if (!checkBackPressed) {
                 startActivity(intent)
                 finish()
             }
@@ -25,7 +26,7 @@ class SplashActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        if(checkBackPressed== true){
+        if(checkBackPressed){
             finish()
         }
         //super.onBackPressed()

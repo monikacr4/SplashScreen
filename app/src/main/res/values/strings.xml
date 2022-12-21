@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">SplashScreen</string>
+    <string name="enter_your_age">Enter your age</string>
+    <string name="age_entered">Age Entered</string>
+    <string name="name_entered">Name Entered</string>
+    <string name="occupation_entered">Occupation Entered</string>
 </resources>

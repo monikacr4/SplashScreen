@@ -1,4 +1,4 @@
-package com.example.splashscreen
+package com.example.splashscreen.view
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -7,8 +7,10 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.example.splashscreen.model.Person
+import com.example.splashscreen.R
 import com.google.android.material.textfield.TextInputEditText
-
+//viewbinding
 class MainActivity : AppCompatActivity() {
     private var personName: TextInputEditText? = null
     lateinit var personAge: TextInputEditText

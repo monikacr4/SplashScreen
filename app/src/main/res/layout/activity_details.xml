@@ -6,13 +6,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="20dp"
-    tools:context=".DetailsActivity">
+    tools:context=".view.DetailsActivity">
 
     <TextView
         android:id="@+id/detailsPerson"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
-        app:layout_constraintBottom_toBottomOf="@id/detailsAges"
+        app:layout_constraintBottom_toBottomOf="@id/detailsAge"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"

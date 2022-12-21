@@ -1,20 +1,19 @@
-package com.example.splashscreen.Model
+package com.example.splashscreen.repository
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
-import android.widget.TextView
-import com.example.splashscreen.Details
+import com.example.splashscreen.model.Details
 
 
-class PreferenceRepository {
+class PreferenceRepository(val context:Context) {
+//constant
+    private var sharedpref = "my-pref"
 
-    var SHARED_PREF = "mypref"
-
-
-    fun saveStringInPref(context: Context, details: Details) {
+//mode_privt
+    fun saveStringInPref(details: Details) {
         val sharedPref: SharedPreferences =
-            context.getSharedPreferences(SHARED_PREF, MODE_PRIVATE)
+            context.getSharedPreferences(sharedpref, MODE_PRIVATE)
         val editor = sharedPref.edit()
         editor.putString(details.nameKey, details.name)
         editor.putString(details.ageKey, details.age)
@@ -22,14 +21,13 @@ class PreferenceRepository {
         editor.apply()
     }
 
-    fun getFromPref(context: Context, details: Details): Details? {
+    fun getFromPref(details: Details): Details {
         val sharedPref: SharedPreferences =
-            context.getSharedPreferences(SHARED_PREF, MODE_PRIVATE)
+            context.getSharedPreferences(sharedpref, MODE_PRIVATE)
         val namePerson = sharedPref.getString(details.nameKey, null)
         val agePerson = sharedPref.getString(details.ageKey, null)
         val occupationPerson = sharedPref.getString(details.occupationKey, null)
-        val Detail = Details(name =namePerson, age = agePerson,occupation = occupationPerson)
-        return Detail
+        return Details(name = namePerson, age = agePerson, occupation = occupationPerson)
     }
 
 

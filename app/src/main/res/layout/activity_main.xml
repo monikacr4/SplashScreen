@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".view.MainActivity">
 
 
     <com.google.android.material.textfield.TextInputEditText
@@ -23,7 +23,7 @@
         android:id="@+id/personAge"
         android:layout_width="237dp"
         android:layout_height="43dp"
-        android:hint="Enter your age"
+        android:hint="@string/enter_your_age"
         android:inputType="number"
         app:layout_constraintBottom_toTopOf="@id/personOccupation"
         app:layout_constraintTop_toBottomOf="@id/personName"

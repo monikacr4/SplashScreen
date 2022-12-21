@@ -1,6 +1,5 @@
-package com.example.splashscreen
+package com.example.splashscreen.view
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -10,18 +9,23 @@ import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.viewModels
-import com.example.splashscreen.Model.PreferenceVm
+import androidx.lifecycle.ViewModelProvider
+import com.example.splashscreen.model.Details
+import com.example.splashscreen.model.Person
+import com.example.splashscreen.R
+import com.example.splashscreen.viewModel.PreferenceVM
 import com.example.splashscreen.R.layout
+import com.example.splashscreen.repository.PreferenceRepository
 
+private const val SHARED_PREF = "mypref"
 class DetailsActivity : AppCompatActivity() {
     private lateinit var detailsPerson: TextView
     private lateinit var detailsAge: TextView
     private lateinit var detailsOccupation: TextView
 
-    //Why lateint
+    //Why lateint - we can declare the variable without assigning value
     private lateinit var sharedPreferences: SharedPreferences
-    private lateinit var editor: SharedPreferences.Editor
+    //private lateinit var editor: SharedPreferences.Editor
 
     companion object {
         private const val SHARED_PREF = "mypref"
@@ -33,10 +37,11 @@ class DetailsActivity : AppCompatActivity() {
 
 
     //Why lazy, what is ment by keyword, what is inline function
-    private val viewModel by viewModels<PreferenceVm>()
+    //lazy- until the variable is used memory will not be allocated and it can be iitialised whenevr needed
+    //keyword - predefined words
+    //private val viewModel by viewModels<PreferenceVM>()
 
 
-    @SuppressLint("MissingInflatedId", "SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layout.activity_details)
@@ -50,20 +55,24 @@ class DetailsActivity : AppCompatActivity() {
         val person = intent.getSerializableExtra("PERSON") as Person
 
         //Move this to strings
-        detailsPerson.text = "Name entered : " + person.name
-        detailsAge.text = "Age entered: " + person.age
-        detailsOccupation.text = "Occupation entered: " + person.occupation
+        "@string/name_entered: ${person.name}".also { detailsPerson.text = it }
+        "@string/age_entered: ${person.age}".also { detailsAge.text = it }
+        "@string/occupation_entered: ${person.occupation}".also { detailsOccupation.text = it }
 
 
         sharedPreferences = getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE)
         //Can be local
-        editor = sharedPreferences.edit()
+        //editor = sharedPreferences.edit()
 
         val continueButton: Button = findViewById(R.id.continueButton)
         continueButton.setOnClickListener {
             val names = detailsPerson.text.toString()
             val ages = detailsAge.text.toString()
             val occupations = detailsOccupation.text.toString()
+
+            val viewModel: PreferenceVM = ViewModelProvider(this,
+                DetailsVMFactory(repository = PreferenceRepository(context = application))
+            )[PreferenceVM::class.java]
 
             viewModel.saveDetails(
                 details = Details(
