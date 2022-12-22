@@ -3,42 +3,36 @@ package com.example.splashscreen.view
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.example.splashscreen.model.Person
 import com.example.splashscreen.R
+import com.example.splashscreen.databinding.ActivityMainBinding
 import com.google.android.material.textfield.TextInputEditText
-//viewbinding
+
 class MainActivity : AppCompatActivity() {
     private var personName: TextInputEditText? = null
-    lateinit var personAge: TextInputEditText
-    lateinit var personOccupation: EditText
+    private lateinit var personAge: TextInputEditText
+    private lateinit var personOccupation: EditText
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        //viewModel = ViewModelProviders.of()
-
-        personName = findViewById(R.id.personName)
-        personAge = findViewById(R.id.personAge)
-        personOccupation = findViewById(R.id.personOccupation)
-
+        binding =ActivityMainBinding.inflate(layoutInflater) //instantiate layout XML file into its corresponding View objects
+        setContentView(binding.root)
 
         val button: Button = findViewById(R.id.button)
         button.setOnClickListener {
-            val name = personName?.text.toString()
-            val age = personAge.text.toString().toIntOrNull()
-            val occupation = personOccupation.text.toString()
+            val name = binding.personName.text.toString()
+            val age = binding.personAge.text.toString()
+            val occupation = binding.personOccupation.text.toString()
             val person = Person(name, age, occupation)
 
             if (name.isEmpty()) {
                 personName?.error = "name required"
                 return@setOnClickListener
-
-            } else if (age == null) {
+            } else if (age.isEmpty()) {
                 personAge.error = "age required"
                 Toast.makeText(this, "Please enter a number", Toast.LENGTH_LONG).show()
                 return@setOnClickListener
@@ -50,18 +44,6 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, DetailsActivity::class.java)
             intent.putExtra("PERSON", person)
             startActivity(intent)
-
-
         }
-
     }
-
-    override fun onPause() {
-        super.onPause()
-        Log.d("Main", "onPause main Called")
-    }
-
 }
-
-
-

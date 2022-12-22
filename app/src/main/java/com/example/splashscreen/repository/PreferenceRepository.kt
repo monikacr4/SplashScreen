@@ -3,32 +3,44 @@ package com.example.splashscreen.repository
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
-import com.example.splashscreen.model.Details
+import com.example.splashscreen.model.Person
 
 
 class PreferenceRepository(val context:Context) {
-//constant
-    private var sharedpref = "my-pref"
+    private val nameKey: String = "name"
+    private val ageKey: String = "age"
+    private val occupationKey: String = "occupation"
 
-//mode_privt
-    fun saveStringInPref(details: Details) {
+    /*const should be used in companion object or at higher level. it cant be initialised at
+    * runtime so function or variables should not be assigned to const
+    * val is used when we are assigning it with some value at run time*/
+    companion object {
+        private const val sharedPre = "my-pref"
+    }
+
+    //MODE_PRIVATE:Mode of storing data = only this application can read this sharedPreference file
+//sharedPreference is an interface
+//MODE_APPEND is used while reading the data from the SharedPre file.
+    fun saveStringInPref(details: Person) {
         val sharedPref: SharedPreferences =
-            context.getSharedPreferences(sharedpref, MODE_PRIVATE)
+            context.getSharedPreferences(Companion.sharedPre, MODE_PRIVATE)
         val editor = sharedPref.edit()
-        editor.putString(details.nameKey, details.name)
-        editor.putString(details.ageKey, details.age)
-        editor.putString(details.occupationKey, details.occupation)
+        editor.putString(nameKey, details.name)
+        editor.putString(ageKey, details.age)
+        editor.putString(occupationKey, details.occupation)
         editor.apply()
     }
 
-    fun getFromPref(details: Details): Details {
+    fun getFromPref(): Person {
         val sharedPref: SharedPreferences =
-            context.getSharedPreferences(sharedpref, MODE_PRIVATE)
-        val namePerson = sharedPref.getString(details.nameKey, null)
-        val agePerson = sharedPref.getString(details.ageKey, null)
-        val occupationPerson = sharedPref.getString(details.occupationKey, null)
-        return Details(name = namePerson, age = agePerson, occupation = occupationPerson)
+            context.getSharedPreferences(sharedPre, MODE_PRIVATE)
+        val namePerson = sharedPref.getString(nameKey, null)
+        val agePerson = sharedPref.getString(ageKey, null)
+        val occupationPerson = sharedPref.getString(occupationKey, null)
+        return Person(name = namePerson, age = agePerson, occupation = occupationPerson)
     }
+}
+
 
 
 
@@ -46,6 +58,6 @@ class PreferenceRepository(val context:Context) {
 //        val personOccupation = sharedPreferences.getString(OCCUPATION,null)
 //
 //        return sharedPref.getString(personName,null)
-//    }
+//
 
-}
+
